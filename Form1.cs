@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.Windows.Forms;
 using Tesseract;
 
-namespace リハーサルキャプチャ
+namespace GakRehearsalCapture
 {
     public partial class Form1 : Form
     {

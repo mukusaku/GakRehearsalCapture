@@ -1,4 +1,4 @@
-namespace リハーサルキャプチャ
+namespace GakRehearsalCapture
 {
     internal static class Program
     {

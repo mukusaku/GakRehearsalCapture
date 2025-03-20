@@ -1,4 +1,4 @@
-﻿namespace リハーサルキャプチャ
+﻿namespace GakRehearsalCapture
 {
     partial class OverlayForm
     {
