@@ -116,7 +116,8 @@ namespace GakRehearsalCapture
 
                 // Tesseract OCR を実行して結果を表示
                 string ocrResult = PerformOcrWithTesseract(bitmap);
-                MessageBox.Show(ocrResult);
+                SaveToCsv(ocrResult);
+                //MessageBox.Show(ocrResult);
             }
             else
             {
@@ -154,10 +155,32 @@ namespace GakRehearsalCapture
             string extractedData = "";
             foreach (Match match in matches)
             {
-                extractedData += match.Value + "\n";
+                // そのままだとCSVに吐かせた際に意図しないカンマが行われるので、ダブルクォートで囲む
+                extractedData += "\"" + match.Value.Replace(" ", "\",\"") + "\"" + "\n";
+                //extractedData += match.Value + "\n";
             }
-
+            // そのままだとCSVに吐かせた際に意図しないカンマが行われるので、ダブルクォートで囲む
+            //extractedData = "\"" + extractedData.Replace(" ", "\",\"") + "\"";
             return extractedData;
+        }
+
+        private void SaveToCsv(string extractedData)
+        {
+            string filePath = "output.csv";
+
+            try
+            {
+                // 追記モードで書き込む
+                using (StreamWriter writer = new StreamWriter(filePath, true))
+                {
+                    writer.WriteLine(extractedData);
+                }
+                MessageBox.Show("データをCSVに保存しました: " + filePath + "\n" + extractedData);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("保存中にエラーが発生しました: " + ex.Message + "\n" + extractedData);
+            }
         }
     }
 }
