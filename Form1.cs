@@ -3,6 +3,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using Tesseract;
 
 namespace GakRehearsalCapture
@@ -129,8 +130,10 @@ namespace GakRehearsalCapture
             // Bitmap を Pix に変換して OCR 実行
             using var img = BitmapToPix(bitmap);
             using var page = ocrEngine.Process(img);
-            return page.GetText();
+            var result = ExtractScores(page.GetText());
+            return result;
         }
+
         private Pix BitmapToPix(Bitmap bitmap)
         {
             using (var stream = new System.IO.MemoryStream())
@@ -139,6 +142,22 @@ namespace GakRehearsalCapture
                 stream.Position = 0;
                 return Pix.LoadFromMemory(stream.ToArray());
             }
+        }
+
+        private String ExtractScores(string ocrText)
+        {
+            // カンマ付きの5桁の数字が3つ並んでいるパターン
+            string pattern = @"\b\d{1,3},\d{3}\s\d{1,3},\d{3}\s\d{1,3},\d{3}\b";
+
+            MatchCollection matches = Regex.Matches(ocrText, pattern);
+
+            string extractedData = "";
+            foreach (Match match in matches)
+            {
+                extractedData += match.Value + "\n";
+            }
+
+            return extractedData;
         }
     }
 }
