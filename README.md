@@ -1,0 +1,2 @@
+# GakRehearsalCapture
+学のリハーサル結果をOCRで読み取ってCSVに吐くやつ
