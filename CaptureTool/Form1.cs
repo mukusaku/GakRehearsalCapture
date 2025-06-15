@@ -33,7 +33,7 @@ namespace GakRehearsalCapture
             }
         }
 
-        private async void buttonOCR_Click(object sender, EventArgs e)
+        private async void buttonRunOcr_Click(object sender, EventArgs e)
         {
             if (pictureBox1.Image != null)
             {
@@ -104,7 +104,7 @@ namespace GakRehearsalCapture
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonReread_Click(object sender, EventArgs e)
         {
             Rectangle? area = ConfigManager.GetCaptureArea();
 

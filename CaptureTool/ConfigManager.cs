@@ -21,10 +21,10 @@ namespace GakRehearsalCapture
 
             config["captureArea"] = new JObject
             {
-                ["X"] = selectedArea.X,
-                ["Y"] = selectedArea.Y,
-                ["Width"] = selectedArea.Width,
-                ["Height"] = selectedArea.Height
+                ["x"] = selectedArea.X,
+                ["y"] = selectedArea.Y,
+                ["width"] = selectedArea.Width,
+                ["height"] = selectedArea.Height
             };
 
             File.WriteAllText(configPath, config.ToString());
@@ -39,10 +39,10 @@ namespace GakRehearsalCapture
 
             var area = config["captureArea"];
             return new Rectangle(
-                (int)area["X"],
-                (int)area["Y"],
-                (int)area["Width"],
-                (int)area["Height"]
+                (int)area["x"],
+                (int)area["y"],
+                (int)area["width"],
+                (int)area["height"]
             );
         }
     }
