@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             buttonSelectRange = new Button();
-            button2 = new Button();
+            buttonRunOcr = new Button();
             pictureBox1 = new PictureBox();
             labelStatus = new Label();
-            button1 = new Button();
+            buttonReread = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -46,15 +46,15 @@
             buttonSelectRange.UseVisualStyleBackColor = true;
             buttonSelectRange.Click += buttonSelectRange_Click;
             // 
-            // button2
-            // 
-            button2.Location = new Point(12, 69);
-            button2.Name = "button2";
-            button2.Size = new Size(218, 52);
-            button2.TabIndex = 3;
-            button2.Text = "OCR実行";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += buttonOCR_Click;
+            // buttonRunOcr
+            //
+            buttonRunOcr.Location = new Point(12, 69);
+            buttonRunOcr.Name = "buttonRunOcr";
+            buttonRunOcr.Size = new Size(218, 52);
+            buttonRunOcr.TabIndex = 3;
+            buttonRunOcr.Text = "OCR実行";
+            buttonRunOcr.UseVisualStyleBackColor = true;
+            buttonRunOcr.Click += buttonRunOcr_Click;
             // 
             // pictureBox1
             // 
@@ -73,25 +73,25 @@
             labelStatus.TabIndex = 6;
             labelStatus.Text = "範囲を選択ボタンでリハーサル画面をキャプチャしてください";
             // 
-            // button1
-            // 
-            button1.Location = new Point(12, 127);
-            button1.Name = "button1";
-            button1.Size = new Size(218, 52);
-            button1.TabIndex = 7;
-            button1.Text = "今の選択範囲で読み取り直す";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            // buttonReread
+            //
+            buttonReread.Location = new Point(12, 127);
+            buttonReread.Name = "buttonReread";
+            buttonReread.Size = new Size(218, 52);
+            buttonReread.TabIndex = 7;
+            buttonReread.Text = "今の選択範囲で読み取り直す";
+            buttonReread.UseVisualStyleBackColor = true;
+            buttonReread.Click += buttonReread_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(780, 730);
-            Controls.Add(button1);
+            Controls.Add(buttonReread);
             Controls.Add(labelStatus);
             Controls.Add(pictureBox1);
-            Controls.Add(button2);
+            Controls.Add(buttonRunOcr);
             Controls.Add(buttonSelectRange);
             Name = "Form1";
             Text = "Form1";
@@ -104,9 +104,9 @@
         #endregion
 
         private Button buttonSelectRange;
-        private Button button2;
+        private Button buttonRunOcr;
         private PictureBox pictureBox1;
         private Label labelStatus;
-        private Button button1;
+        private Button buttonReread;
     }
 }
