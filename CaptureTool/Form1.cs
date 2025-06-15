@@ -114,17 +114,17 @@ namespace GakRehearsalCapture
                 return;
             }
 
-            using (Bitmap bmp = new Bitmap(area.Value.Width, area.Value.Height))
+            Bitmap bmp = new Bitmap(area.Value.Width, area.Value.Height);
+            using (Graphics g = Graphics.FromImage(bmp))
             {
-                using (Graphics g = Graphics.FromImage(bmp))
-                {
-                    g.CopyFromScreen(area.Value.X, area.Value.Y, 0, 0, area.Value.Size);
-                }
-                // 選択範囲をキャプチャしてプレビュー表示
-                pictureBox1.Image = bmp;
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                PerformOcrWithTesseract(bmp);
+                g.CopyFromScreen(area.Value.X, area.Value.Y, 0, 0, area.Value.Size);
             }
+            // 以前の画像を解放してから更新
+            pictureBox1.Image?.Dispose();
+            // 選択範囲をキャプチャしてプレビュー表示
+            pictureBox1.Image = bmp;
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            PerformOcrWithTesseract(bmp);
         }
     }
 }
