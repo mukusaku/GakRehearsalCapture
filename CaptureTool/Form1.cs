@@ -79,8 +79,8 @@ namespace GakRehearsalCapture
             string extractedData = "";
             foreach (Match match in matches)
             {
-                // そのままだとCSVに吐かせた際に意図しないカンマが行われるので、ダブルクォートで囲む
-                extractedData += "\"" + match.Value.Replace(" ", "\",\"") + "\"" + "\n";
+                // そのままだとCSVに吐かせた際に意図しないカンマが挟まるので、ダブルクォートで囲む
+                extractedData += "\"" + match.Value.Replace(" ", "\",\"") + "\"" + ",";
             }
             return extractedData;
         }
