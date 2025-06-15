@@ -6,6 +6,8 @@ namespace GakRehearsalCapture
     public partial class Form1 : Form
     {
 
+        private string lastOcrResult = string.Empty;
+
         public Form1()
         {
             InitializeComponent();
@@ -22,41 +24,44 @@ namespace GakRehearsalCapture
             {
                 if (overlay.ShowDialog() == DialogResult.OK)
                 {
-                    // 選択範囲をキャプチャしてプレビュー表示
                     Bitmap capturedImage = overlay.CaptureSelectedArea();
+                    pictureBox1.Image?.Dispose();
                     pictureBox1.Image = capturedImage;
                     pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-
-                    // PictureBoxのサイズをキャプチャした画像に合わせる（任意）
-                    //pictureBox1.Size = new Size(capturedImage.Width, capturedImage.Height);
+                    PerformOcrAndPreview(capturedImage);
                 }
             }
         }
 
-        private async void buttonRunOcr_Click(object sender, EventArgs e)
+        private void buttonRunOcr_Click(object sender, EventArgs e)
         {
-            if (pictureBox1.Image != null)
+            if (string.IsNullOrEmpty(lastOcrResult))
             {
-                Bitmap bitmap = (Bitmap)pictureBox1.Image;
+                MessageBox.Show("まず範囲を選択してOCRを実行してください。");
+                return;
+            }
+            SaveToCsv(lastOcrResult);
+        }
 
-                // Tesseract OCR を実行して結果を表示
-                PerformOcrWithTesseract(bitmap);
-                //SaveToCsv(ocrResult);
+        private string PerformOcr(Bitmap bitmap)
+        {
+            using var ocrEngine = new TesseractEngine(@"./tessdata", "eng+jpn", EngineMode.Default);
+            using var img = BitmapToPix(bitmap);
+            using var page = ocrEngine.Process(img);
+            return ExtractScores(page.GetText());
+        }
+
+        private void PerformOcrAndPreview(Bitmap bitmap)
+        {
+            lastOcrResult = PerformOcr(bitmap);
+            if (string.IsNullOrEmpty(lastOcrResult))
+            {
+                labelStatus.Text = "数字が検出されませんでした";
             }
             else
             {
-                MessageBox.Show("画像がありません。まず範囲を選択して画像をキャプチャしてください。");
+                labelStatus.Text = lastOcrResult;
             }
-        }
-        private void PerformOcrWithTesseract(Bitmap bitmap)
-        {
-            // Tesseract OCR エンジンの初期化
-            using var ocrEngine = new TesseractEngine(@"./tessdata", "eng+jpn", EngineMode.Default);
-            // Bitmap を Pix に変換して OCR 実行
-            using var img = BitmapToPix(bitmap);
-            using var page = ocrEngine.Process(img);
-            var result = ExtractScores(page.GetText());
-            SaveToCsv(result);
         }
 
         private Pix BitmapToPix(Bitmap bitmap)
@@ -124,7 +129,7 @@ namespace GakRehearsalCapture
             // 選択範囲をキャプチャしてプレビュー表示
             pictureBox1.Image = bmp;
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            PerformOcrWithTesseract(bmp);
+            PerformOcrAndPreview(bmp);
         }
     }
 }
