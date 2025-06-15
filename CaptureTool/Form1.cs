@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using System.Text;
 using Tesseract;
 
 namespace GakRehearsalCapture
@@ -43,7 +44,7 @@ namespace GakRehearsalCapture
             SaveToCsv(lastOcrResult);
         }
 
-        private string PerformOcr(Bitmap bitmap)
+        private (string Csv, string Preview) PerformOcr(Bitmap bitmap)
         {
             using var ocrEngine = new TesseractEngine(@"./tessdata", "eng+jpn", EngineMode.Default);
             using var img = BitmapToPix(bitmap);
@@ -53,14 +54,15 @@ namespace GakRehearsalCapture
 
         private void PerformOcrAndPreview(Bitmap bitmap)
         {
-            lastOcrResult = PerformOcr(bitmap);
+            var result = PerformOcr(bitmap);
+            lastOcrResult = result.Csv;
             if (string.IsNullOrEmpty(lastOcrResult))
             {
                 labelStatus.Text = "数字が検出されませんでした";
             }
             else
             {
-                labelStatus.Text = lastOcrResult;
+                labelStatus.Text = result.Preview;
             }
         }
 
@@ -74,20 +76,24 @@ namespace GakRehearsalCapture
             }
         }
 
-        private String ExtractScores(string ocrText)
+        private (string Csv, string Preview) ExtractScores(string ocrText)
         {
             // カンマ付きの5桁の数字が3つ並んでいるパターン
             string pattern = @"\b\d{1,3},\d{3}\s\d{1,3},\d{3}\s\d{1,3},\d{3}\b";
 
             MatchCollection matches = Regex.Matches(ocrText, pattern);
 
-            string extractedData = "";
+            var csvBuilder = new System.Text.StringBuilder();
+            var previewBuilder = new System.Text.StringBuilder();
+
             foreach (Match match in matches)
             {
-                // そのままだとCSVに吐かせた際に意図しないカンマが挟まるので、ダブルクォートで囲む
-                extractedData += "\"" + match.Value.Replace(" ", "\",\"") + "\"" + ",";
+                string formatted = "\"" + match.Value.Replace(" ", "\",\"") + "\"";
+                csvBuilder.Append(formatted).Append(',');
+                previewBuilder.AppendLine(formatted);
             }
-            return extractedData;
+
+            return (csvBuilder.ToString(), previewBuilder.ToString());
         }
 
         private void SaveToCsv(string extractedData)
