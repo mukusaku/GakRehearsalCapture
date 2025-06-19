@@ -37,7 +37,7 @@ namespace GakRehearsalCapture
         {
             if (string.IsNullOrEmpty(lastOcrResult))
             {
-                MessageBox.Show("まず範囲を選択してOCRを実行してください。");
+                MessageBox.Show("まず範囲を選択して数値を読み取ってください。");
                 return;
             }
             SaveToCsv(lastOcrResult);
