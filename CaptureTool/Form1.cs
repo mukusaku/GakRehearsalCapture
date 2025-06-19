@@ -44,7 +44,7 @@ namespace GakRehearsalCapture
             SaveToCsv(lastOcrResult);
         }
 
-        private (string Csv, string Preview) PerformOcr(Bitmap bitmap)
+        private (string Csv, string Preview, int Count) PerformOcr(Bitmap bitmap)
         {
             using var ocrEngine = new TesseractEngine(@"./tessdata", "eng+jpn", EngineMode.Default);
             using var img = BitmapToPix(bitmap);
@@ -59,10 +59,19 @@ namespace GakRehearsalCapture
             if (string.IsNullOrEmpty(lastOcrResult))
             {
                 labelStatus.Text = "数字が検出されませんでした";
+                dataGridViewPreview.Rows.Clear();
             }
             else
             {
-                labelStatus.Text = result.Preview;
+                FillPreviewGrid(result.Preview);
+                if (result.Count != 9)
+                {
+                    labelStatus.Text = "9つの数値を読み取れませんでした";
+                }
+                else
+                {
+                    labelStatus.Text = "";
+                }
             }
         }
 
@@ -76,7 +85,7 @@ namespace GakRehearsalCapture
             }
         }
 
-        private (string Csv, string Preview) ExtractScores(string ocrText)
+        private (string Csv, string Preview, int Count) ExtractScores(string ocrText)
         {
             // カンマ付きの5桁の数字が3つ並んでいるパターン
             string pattern = @"\b\d{1,3},\d{3}\s\d{1,3},\d{3}\s\d{1,3},\d{3}\b";
@@ -93,7 +102,23 @@ namespace GakRehearsalCapture
                 previewBuilder.AppendLine(formatted);
             }
 
-            return (csvBuilder.ToString(), previewBuilder.ToString());
+            return (csvBuilder.ToString(), previewBuilder.ToString(), matches.Count * 3);
+        }
+
+        private void FillPreviewGrid(string previewText)
+        {
+            dataGridViewPreview.Rows.Clear();
+            using var reader = new StringReader(previewText);
+            string? line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                string cleaned = line.Replace("\"", "");
+                var cells = cleaned.Split(',');
+                if (cells.Length == 3)
+                {
+                    dataGridViewPreview.Rows.Add(cells);
+                }
+            }
         }
 
         private void SaveToCsv(string extractedData)

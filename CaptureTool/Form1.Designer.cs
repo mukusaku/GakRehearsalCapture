@@ -33,7 +33,9 @@
             pictureBox1 = new PictureBox();
             labelStatus = new Label();
             buttonReread = new Button();
+            dataGridViewPreview = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewPreview).BeginInit();
             SuspendLayout();
             // 
             // buttonSelectRange
@@ -65,13 +67,28 @@
             pictureBox1.TabStop = false;
             // 
             // labelStatus
-            // 
+            //
             labelStatus.AutoSize = true;
             labelStatus.Location = new Point(12, 182);
             labelStatus.Name = "labelStatus";
             labelStatus.Size = new Size(273, 15);
             labelStatus.TabIndex = 6;
             labelStatus.Text = "範囲を選択ボタンでリハーサル画面をキャプチャしてください";
+
+            //
+            // dataGridViewPreview
+            //
+            dataGridViewPreview.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewPreview.Columns.AddRange(new DataGridViewColumn[] {
+                new DataGridViewTextBoxColumn { HeaderText = "Score1", Name = "colScore1" },
+                new DataGridViewTextBoxColumn { HeaderText = "Score2", Name = "colScore2" },
+                new DataGridViewTextBoxColumn { HeaderText = "Score3", Name = "colScore3" }
+            });
+            dataGridViewPreview.Location = new Point(12, 210);
+            dataGridViewPreview.Name = "dataGridViewPreview";
+            dataGridViewPreview.RowTemplate.Height = 25;
+            dataGridViewPreview.Size = new Size(360, 240);
+            dataGridViewPreview.TabIndex = 8;
             // 
             // buttonReread
             //
@@ -90,6 +107,7 @@
             ClientSize = new Size(780, 730);
             Controls.Add(buttonReread);
             Controls.Add(labelStatus);
+            Controls.Add(dataGridViewPreview);
             Controls.Add(pictureBox1);
             Controls.Add(buttonRunOcr);
             Controls.Add(buttonSelectRange);
@@ -97,6 +115,7 @@
             Text = "Form1";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewPreview).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -108,5 +127,6 @@
         private PictureBox pictureBox1;
         private Label labelStatus;
         private Button buttonReread;
+        private DataGridView dataGridViewPreview;
     }
 }
