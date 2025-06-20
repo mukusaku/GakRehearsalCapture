@@ -52,7 +52,7 @@
             buttonRunOcr.Name = "buttonRunOcr";
             buttonRunOcr.Size = new Size(218, 52);
             buttonRunOcr.TabIndex = 3;
-            buttonRunOcr.Text = "OCR実行";
+            buttonRunOcr.Text = "CSV保存";
             buttonRunOcr.UseVisualStyleBackColor = true;
             buttonRunOcr.Click += buttonRunOcr_Click;
             // 
