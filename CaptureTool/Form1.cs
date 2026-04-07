@@ -8,6 +8,7 @@ namespace GakRehearsalCapture
     {
 
         private string lastOcrResult = string.Empty;
+        private int ocrCount = 0;
 
         public Form1()
         {
@@ -56,6 +57,8 @@ namespace GakRehearsalCapture
         {
             var result = PerformOcr(bitmap);
             lastOcrResult = result.Csv;
+            ocrCount++;
+            labelOcrCount.Text = $"OCR実行回数: {ocrCount}";
             if (string.IsNullOrEmpty(lastOcrResult))
             {
                 labelStatus.Text = "数字が検出されませんでした";
@@ -64,6 +67,12 @@ namespace GakRehearsalCapture
             {
                 labelStatus.Text = result.Preview;
             }
+        }
+
+        private void buttonResetCount_Click(object sender, EventArgs e)
+        {
+            ocrCount = 0;
+            labelOcrCount.Text = $"OCR実行回数: {ocrCount}";
         }
 
         private Pix BitmapToPix(Bitmap bitmap)
