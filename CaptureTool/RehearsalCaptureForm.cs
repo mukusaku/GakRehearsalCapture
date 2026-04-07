@@ -4,13 +4,13 @@ using Tesseract;
 
 namespace GakRehearsalCapture
 {
-    public partial class Form1 : Form
+    public partial class RehearsalCaptureForm : Form
     {
 
         private string lastOcrResult = string.Empty;
         private int ocrCount = 0;
 
-        public Form1()
+        public RehearsalCaptureForm()
         {
             InitializeComponent();
         }

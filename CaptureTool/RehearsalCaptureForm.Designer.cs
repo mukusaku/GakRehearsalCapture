@@ -1,6 +1,6 @@
 ﻿namespace GakRehearsalCapture
 {
-    partial class Form1
+    partial class RehearsalCaptureForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -139,8 +139,8 @@
             Controls.Add(pictureBox1);
             Controls.Add(buttonRunOcr);
             Controls.Add(buttonSelectRange);
-            Name = "Form1";
-            Text = "Form1";
+            Name = "RehearsalCaptureForm";
+            Text = "学マスリハーサルOCRツール";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
