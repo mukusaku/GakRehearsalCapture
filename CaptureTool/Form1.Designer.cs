@@ -33,6 +33,8 @@
             pictureBox1 = new PictureBox();
             labelStatus = new Label();
             buttonReread = new Button();
+            labelOcrCount = new Label();
+            buttonResetCount = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -63,11 +65,29 @@
             pictureBox1.Size = new Size(373, 705);
             pictureBox1.TabIndex = 5;
             pictureBox1.TabStop = false;
-            // 
+            //
+            // labelOcrCount
+            //
+            labelOcrCount.AutoSize = true;
+            labelOcrCount.Location = new Point(12, 187);
+            labelOcrCount.Name = "labelOcrCount";
+            labelOcrCount.TabIndex = 8;
+            labelOcrCount.Text = "OCR実行回数: 0";
+            //
+            // buttonResetCount
+            //
+            buttonResetCount.Location = new Point(12, 207);
+            buttonResetCount.Name = "buttonResetCount";
+            buttonResetCount.Size = new Size(218, 40);
+            buttonResetCount.TabIndex = 9;
+            buttonResetCount.Text = "回数をリセット";
+            buttonResetCount.UseVisualStyleBackColor = true;
+            buttonResetCount.Click += buttonResetCount_Click;
+            //
             // labelStatus
-            // 
+            //
             labelStatus.AutoSize = true;
-            labelStatus.Location = new Point(12, 182);
+            labelStatus.Location = new Point(12, 257);
             labelStatus.Name = "labelStatus";
             labelStatus.Size = new Size(273, 15);
             labelStatus.TabIndex = 6;
@@ -88,6 +108,8 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(780, 730);
+            Controls.Add(buttonResetCount);
+            Controls.Add(labelOcrCount);
             Controls.Add(buttonReread);
             Controls.Add(labelStatus);
             Controls.Add(pictureBox1);
@@ -108,5 +130,7 @@
         private PictureBox pictureBox1;
         private Label labelStatus;
         private Button buttonReread;
+        private Label labelOcrCount;
+        private Button buttonResetCount;
     }
 }
