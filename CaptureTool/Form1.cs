@@ -75,6 +75,18 @@ namespace GakRehearsalCapture
             labelOcrCount.Text = $"OCR実行回数: {ocrCount}";
         }
 
+        private void buttonIncrement_Click(object sender, EventArgs e)
+        {
+            ocrCount++;
+            labelOcrCount.Text = $"OCR実行回数: {ocrCount}";
+        }
+
+        private void buttonDecrement_Click(object sender, EventArgs e)
+        {
+            ocrCount--;
+            labelOcrCount.Text = $"OCR実行回数: {ocrCount}";
+        }
+
         private Pix BitmapToPix(Bitmap bitmap)
         {
             using (var stream = new System.IO.MemoryStream())
