@@ -35,6 +35,8 @@
             buttonReread = new Button();
             labelOcrCount = new Label();
             buttonResetCount = new Button();
+            buttonIncrement = new Button();
+            buttonDecrement = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -84,10 +86,30 @@
             buttonResetCount.UseVisualStyleBackColor = true;
             buttonResetCount.Click += buttonResetCount_Click;
             //
+            // buttonIncrement
+            //
+            buttonIncrement.Location = new Point(12, 252);
+            buttonIncrement.Name = "buttonIncrement";
+            buttonIncrement.Size = new Size(109, 40);
+            buttonIncrement.TabIndex = 10;
+            buttonIncrement.Text = "加算";
+            buttonIncrement.UseVisualStyleBackColor = true;
+            buttonIncrement.Click += buttonIncrement_Click;
+            //
+            // buttonDecrement
+            //
+            buttonDecrement.Location = new Point(121, 252);
+            buttonDecrement.Name = "buttonDecrement";
+            buttonDecrement.Size = new Size(109, 40);
+            buttonDecrement.TabIndex = 11;
+            buttonDecrement.Text = "減算";
+            buttonDecrement.UseVisualStyleBackColor = true;
+            buttonDecrement.Click += buttonDecrement_Click;
+            //
             // labelStatus
             //
             labelStatus.AutoSize = true;
-            labelStatus.Location = new Point(12, 257);
+            labelStatus.Location = new Point(12, 300);
             labelStatus.Name = "labelStatus";
             labelStatus.Size = new Size(273, 15);
             labelStatus.TabIndex = 6;
@@ -108,6 +130,8 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(780, 730);
+            Controls.Add(buttonDecrement);
+            Controls.Add(buttonIncrement);
             Controls.Add(buttonResetCount);
             Controls.Add(labelOcrCount);
             Controls.Add(buttonReread);
@@ -132,5 +156,7 @@
         private Button buttonReread;
         private Label labelOcrCount;
         private Button buttonResetCount;
+        private Button buttonIncrement;
+        private Button buttonDecrement;
     }
 }
